@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <meta name="description" content="Lantern Tide - an original vertical-scrolling bullet-hell shooter." />
+    <title>Lantern Tide</title>
+    <style>
+      html, body { margin: 0; padding: 0; height: 100%; background: #05060d; overflow: hidden; }
+      body { display: flex; align-items: center; justify-content: center; }
+      #game {
+        display: block;
+        background: #000;
+        outline: none;
+        touch-action: none;
+        user-select: none;
+        -webkit-user-select: none;
+        box-shadow: 0 0 40px rgba(80, 120, 255, 0.15);
+      }
+      #boot { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+              color: #8aa; font: 14px/1.4 "Segoe UI", system-ui, sans-serif; pointer-events: none; }
+      #boot.hidden { display: none; }
+    </style>
+  </head>
+  <body>
+    <div id="boot">Loading Lantern Tide&hellip;</div>
+    <canvas id="game" tabindex="0"></canvas>
+    <noscript>Lantern Tide needs JavaScript and an HTML5 canvas.</noscript>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

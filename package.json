@@ -1,0 +1,21 @@
+{
+  "name": "lantern-tide",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Lantern Tide - an original vertical-scrolling bullet-hell shooter built with TypeScript and HTML5 Canvas.",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "smoke": "node scripts/smoke.mjs"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.18.1",
+    "typescript": "^7.0.2",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
+}
