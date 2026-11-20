@@ -148,7 +148,7 @@ export class Hud {
     row('Graze', 230);
     value(String(run.graze), 230, '#d8c8ff');
 
-    if (w.boss && w.boss.spell) {
+    if (w.boss && w.boss.spell && (w.boss.mode === 'fight' || w.boss.mode === 'warmup')) {
       drawText(ctx, 'Rite in progress', X0, 262, { size: 10, font: FONT_TITLE, italic: true, color: UI.gold });
     }
     if (run.continues > 0) drawText(ctx, `Continues used: ${run.continues}`, X0, 280, { size: 9, font: FONT_UI, color: UI.faint });

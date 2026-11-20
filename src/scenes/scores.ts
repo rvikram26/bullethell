@@ -92,6 +92,7 @@ export class NameEntryScene implements Scene {
   }
 
   enter(app: App): void {
+    if (!this.cleared) app.audio.playMusic('title');
     app.input.textMode = true;
     app.input.takeTyped();
   }

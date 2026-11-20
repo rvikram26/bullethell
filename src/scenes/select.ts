@@ -35,6 +35,10 @@ export class DifficultyScene implements Scene {
     this.menu.index = lastDifficulty;
   }
 
+  enter(app: App): void {
+    app.audio.playMusic('title');
+  }
+
   private choose(id: DifficultyId): void {
     lastDifficulty = this.menu.index;
     const app = this.app;
@@ -92,6 +96,10 @@ export class StageSelectScene implements Scene {
       () => app.goto(new DifficultyScene(app, 'practice')),
     );
     this.menu.index = Math.min(lastStage, GAME_DATA.stages.length - 1);
+  }
+
+  enter(app: App): void {
+    app.audio.playMusic('title');
   }
 
   update(app: App): void {
