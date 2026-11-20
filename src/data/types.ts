@@ -212,7 +212,7 @@ export interface EnemyDef {
 export type CharacterId = 'wren' | 'tamsin' | 'odalys' | 'brindle' | 'vesper' | 'kessra' | 'auriel';
 
 export interface PhaseDef {
-  /** Present = spell card ("rite"); absent = ordinary attack. */
+  /** Name of the rite (a named attack with a cut-in and a capture bonus). Omit it for a plain attack. */
   name?: string;
   hp: number;
   /** Time limit in seconds. */
@@ -222,7 +222,7 @@ export interface PhaseDef {
   move?: PathDef;
   /** Where the boss settles before the phase begins. */
   at?: { x: number; y: number };
-  /** Base capture bonus for spell cards. */
+  /** Base bonus for defeating the rite without dying or bombing. */
   bonus?: number;
   /** Seconds of invulnerable declaration before the attack starts. */
   warmup?: number;

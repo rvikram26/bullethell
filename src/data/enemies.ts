@@ -36,7 +36,7 @@ export const ENEMIES: Record<string, EnemyDef> = {
     score: 2500,
     path: 'hover-long',
     pattern: 'glowcap-spiral',
-    drop: { bigPower: 1, point: 4 },
+    drop: { bigPower: 1, point: 4, bomb: 1 },
   },
 
   // --- Stage 2: the Cloudway Observatory ------------------------------------------------------
@@ -72,7 +72,7 @@ export const ENEMIES: Record<string, EnemyDef> = {
     score: 3000,
     path: 'hover-mid',
     pattern: 'orrery-rings',
-    drop: { bigPower: 1, point: 4 },
+    drop: { bigPower: 1, point: 4, bomb: 1 },
   },
 
   // --- Stage 3: the Beacon Spire --------------------------------------------------------------
@@ -107,6 +107,6 @@ export const ENEMIES: Record<string, EnemyDef> = {
     score: 3500,
     path: 'hover-long',
     pattern: 'crystal-lattice',
-    drop: { bigPower: 1, point: 5 },
+    drop: { bigPower: 1, point: 5, bomb: 1 },
   },
 };

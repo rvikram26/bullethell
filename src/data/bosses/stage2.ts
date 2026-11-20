@@ -106,7 +106,7 @@ export const STAGE2_BOSSES: Record<string, BossDef> = {
         bonus: 1_000_000,
         pattern: 'vesper-eclipse',
         at: { x: 192, y: 140 },
-        drop: { point: 18, bigPower: 3, bomb: 1 },
+        drop: { point: 18, bigPower: 3, bomb: 1, life: 1 },
       },
     ],
   },

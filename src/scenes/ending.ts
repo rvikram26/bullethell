@@ -23,7 +23,7 @@ const GOOD: Page[] = [
   {
     lines: ['In the morning the marsh-lights were dancing again, and the stars were still bright overhead. For once, both had room in the sky.'],
   },
-  { title: 'Ending No. 1', lines: ['A Light That Does Not Consume'] },
+  { title: 'The Good Ending', lines: ['A Light That Does Not Consume'] },
 ];
 
 const NORMAL: Page[] = [
@@ -31,7 +31,7 @@ const NORMAL: Page[] = [
   { lines: ["The Tide drew back from the city. But the light flickered, and Auriel's eyes did not close."] },
   { lines: ['"Again tomorrow, then," the Keeper said softly. "And the night after that."'] },
   { lines: ['Perhaps there is a way to keep a light without burning its keeper. Clear the game without continuing to find it.'] },
-  { title: 'Ending No. 2', lines: ['Again Tomorrow'] },
+  { title: 'The Long Night Ending', lines: ['Again Tomorrow'] },
 ];
 
 const CREDITS: Page = {

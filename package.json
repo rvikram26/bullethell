@@ -4,6 +4,9 @@
   "version": "1.0.0",
   "description": "Lantern Tide - an original vertical-scrolling bullet-hell shooter built with TypeScript and HTML5 Canvas.",
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
