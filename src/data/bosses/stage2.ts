@@ -12,8 +12,10 @@ export const STAGE2_BOSSES: Record<string, BossDef> = {
     color: 'orange',
     phases: [
       {
+        name: 'Courier Rite: Express Route',
         hp: 3000,
         time: 34,
+        bonus: 300_000,
         pattern: 'brindle-1',
         at: { x: 70, y: 110 },
         move: {
@@ -52,8 +54,10 @@ export const STAGE2_BOSSES: Record<string, BossDef> = {
     color: 'purple',
     phases: [
       {
+        name: 'Star Rite: Meteor Census',
         hp: 5100,
         time: 34,
+        bonus: 500_000,
         pattern: 'vesper-1',
         at: { x: 192, y: 100 },
         move: {
@@ -73,8 +77,10 @@ export const STAGE2_BOSSES: Record<string, BossDef> = {
         at: { x: 192, y: 130 },
       },
       {
+        name: 'Comet Rite: Tails of Glass',
         hp: 5100,
         time: 34,
+        bonus: 750_000,
         pattern: 'vesper-comets',
         at: { x: 192, y: 90 },
         move: {

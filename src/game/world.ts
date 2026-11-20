@@ -23,11 +23,12 @@ import {
   type DropDef,
   type PhaseDef,
   type SfxName,
+  type SpriteKind,
   type StageDef,
 } from '../data/types';
 import { Boss } from './boss';
 import { BulletPool } from './bullets';
-import { PatternBank } from './compile';
+import { type CBullet, PatternBank } from './compile';
 import { Enemy } from './enemy';
 import {
   ITEM_BIG_POWER,
@@ -144,7 +145,9 @@ export class World implements FireHost, PlayerHost {
   /** Expanding "bullets cleared" ring drawn by the renderer. */
   clearFx: { x: number; y: number; t: number } | null = null;
   endTimer = 0;
-  /** Shared mutable aim point for FireHost consumers. */
+  /** Score bonus awarded when the stage timeline finished (shown on the clear tally). */
+  clearBonus = 0;
+  /** Aim point for patterns (FireHost). */
   get playerX(): number {
     return this.player.x;
   }
@@ -182,11 +185,12 @@ export class World implements FireHost, PlayerHost {
     this.run.stats = freshStageStats(this.run);
     if (this.debug.power !== undefined) this.run.power = clamp(this.debug.power, 0, MAX_POWER);
     if (this.run.bombs < 3) this.run.bombs = 3;
+    if (this.debug.lives !== undefined) this.run.lives = clamp(Math.round(this.debug.lives), 0, MAX_LIVES);
     this.player.invuln = 120;
 
     this.host.music(this.stage.stageMusic);
-    this.showBanner(`Stage ${this.stage.number}`, this.stage.name);
     if (this.debug.skipToBoss !== undefined) this.runner.skipToBoss(this.debug.skipToBoss);
+    else this.showBanner(`Stage ${this.stage.number}`, this.stage.name);
   }
 
   // ------------------------------------------------------------------------------------------
@@ -210,6 +214,7 @@ export class World implements FireHost, PlayerHost {
     this.updateItems();
     this.particles.update();
     this.updateOverlays();
+    if (this.debug.stress) this.stressFill(this.debug.stress);
 
     if (this.endTimer > 0 && --this.endTimer === 0) this.stageCleared = true;
   }
@@ -651,6 +656,10 @@ export class World implements FireHost, PlayerHost {
     const boss = new Boss(def, before, after, startPhase);
     this.boss = boss;
     boss.init(this);
+    if (!def.midboss) {
+      this.host.music(this.stage.bossMusic);
+      this.host.sfx('warning');
+    }
   }
 
   announceSpell(boss: Boss, phase: PhaseDef): void {
@@ -674,7 +683,7 @@ export class World implements FireHost, PlayerHost {
         this.run.stats.spellsCaptured++;
         this.run.totals.spellsCaptured++;
         this.addScore(bonus);
-        this.pushMessage(`Spell Card Bonus  +${grouped(bonus)}`, 'good');
+        this.pushMessage(`Rite Bonus  +${grouped(bonus)}`, 'good');
         this.host.sfx('capture');
       } else {
         this.pushMessage('Bonus Failed', 'bad');
@@ -712,11 +721,35 @@ export class World implements FireHost, PlayerHost {
   // ------------------------------------------------------------------------------------------
 
   beginStageEnd(): void {
+    const graze = this.run.graze - this.run.stats.grazeAtStart;
+    this.clearBonus = Math.round(((this.stage.number * 500_000 + graze * 500) * this.diff.score) / 10) * 10;
+    this.addScore(this.clearBonus);
     this.endTimer = 160;
     this.bullets.clearAll(this.fxClear);
     this.items.attractAll();
     this.host.music(null);
     this.host.sfx('stage-clear');
     this.player.invuln = Math.max(this.player.invuln, 400);
+  }
+
+  // ------------------------------------------------------------------------------------------
+  // Debug
+  // ------------------------------------------------------------------------------------------
+
+  private stressSpecs: CBullet[] | null = null;
+
+  /** Debug stress test: keep the field topped up with `target` bullets of mixed kinds. */
+  private stressFill(target: number): void {
+    if (!this.stressSpecs) {
+      const kinds: SpriteKind[] = ['pellet', 'orb', 'rice', 'dart', 'star', 'gem', 'needle', 'ring', 'big'];
+      this.stressSpecs = kinds.map((sprite, i) => this.bank.compiler.bullet({ sprite, color: COLOR_NAMES[i % COLOR_NAMES.length], speed: 60, curve: i % 2 ? 6 : -6 }));
+    }
+    const specs = this.stressSpecs;
+    let k = 0;
+    while (this.bullets.count < target && k++ < 400) {
+      const a = this.rng.range(0, TAU);
+      const spec = specs[this.rng.int(specs.length)];
+      this.bullets.spawn(FIELD_W / 2 + this.rng.spread(150), 90 + this.rng.spread(60), a, this.rng.range(0.4, 1.6), spec);
+    }
   }
 }

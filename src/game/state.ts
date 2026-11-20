@@ -72,4 +72,8 @@ export interface DebugOptions {
   /** Start the boss at this phase index. */
   phase?: number;
   power?: number;
+  /** Override the number of spare lives at the start. */
+  lives?: number;
+  /** Keep this many bullets on screen (renderer and simulation stress test). */
+  stress?: number;
 }

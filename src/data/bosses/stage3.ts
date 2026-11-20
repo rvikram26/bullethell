@@ -12,8 +12,10 @@ export const STAGE3_BOSSES: Record<string, BossDef> = {
     color: 'blue',
     phases: [
       {
+        name: 'Gale Rite: Crosswind Heralds',
         hp: 4800,
         time: 30,
+        bonus: 400_000,
         pattern: 'kessra-1',
         at: { x: 192, y: 100 },
         move: {
@@ -53,8 +55,10 @@ export const STAGE3_BOSSES: Record<string, BossDef> = {
     color: 'yellow',
     phases: [
       {
+        name: 'Ember Rite: Last Embers of the Wick',
         hp: 5400,
         time: 36,
+        bonus: 700_000,
         pattern: 'auriel-1',
         at: { x: 192, y: 100 },
         move: {
@@ -82,8 +86,10 @@ export const STAGE3_BOSSES: Record<string, BossDef> = {
         at: { x: 192, y: 150 },
       },
       {
+        name: 'Smoke Rite: Curling Incense',
         hp: 5400,
         time: 36,
+        bonus: 1_100_000,
         pattern: 'auriel-wind',
         at: { x: 192, y: 110 },
         move: {

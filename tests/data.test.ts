@@ -18,14 +18,18 @@ describe('game data', () => {
     }
   });
 
-  it('gives every boss phase an hp pool and a time limit, and names every spell card', () => {
+  it('gives every boss phase an hp pool, a time limit, a distinct rite name and a capture bonus', () => {
+    const names = new Set<string>();
     for (const boss of Object.values(GAME_DATA.bosses)) {
+      expect(boss.phases.length).toBeGreaterThanOrEqual(2);
       for (const p of boss.phases) {
         expect(p.hp).toBeGreaterThan(0);
         expect(p.time).toBeGreaterThan(0);
-        if (p.name) expect(p.bonus).toBeGreaterThan(0);
+        expect(p.name).toBeTruthy();
+        expect(p.bonus).toBeGreaterThan(0);
+        expect(names.has(p.name as string)).toBe(false);
+        names.add(p.name as string);
       }
-      expect(boss.phases.some((p) => p.name)).toBe(true);
     }
   });
 });

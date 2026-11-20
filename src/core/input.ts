@@ -171,7 +171,7 @@ export class Input {
     return cloneBindings(this.bindings);
   }
 
-  /** Register a callback fired once on the first user gesture (audio unlock). */
+  /** Register a callback fired on every user gesture (used to unlock and resume audio). */
   onGesture(cb: () => void): void {
     this.onFirstGesture = cb;
   }
@@ -201,16 +201,18 @@ export class Input {
   }
 
   private fireGesture(): void {
-    if (this.onFirstGesture) {
-      const cb = this.onFirstGesture;
-      this.onFirstGesture = null;
-      cb();
-    }
+    this.onFirstGesture?.();
   }
 
   private onPointer = (): void => {
     this.fireGesture();
   };
+
+  /** Escape is also queued in text mode so name entry can react to it. */
+  private queueText(e: KeyboardEvent): void {
+    if (e.key.length === 1) this.typed.push(e.key);
+    else if (e.key === 'Backspace' || e.key === 'Enter' || e.key === 'Escape') this.typed.push(e.key);
+  }
 
   private onKeyDown = (e: KeyboardEvent): void => {
     this.fireGesture();
@@ -224,10 +226,7 @@ export class Input {
       return;
     }
     if (this.shouldPrevent(e)) e.preventDefault();
-    if (this.textMode) {
-      if (e.key.length === 1) this.typed.push(e.key);
-      else if (e.key === 'Backspace' || e.key === 'Enter') this.typed.push(e.key);
-    }
+    if (this.textMode && !e.ctrlKey && !e.metaKey && !e.altKey) this.queueText(e);
     if (e.repeat) return;
     this.down.add(e.code);
     this.edge.add(e.code);

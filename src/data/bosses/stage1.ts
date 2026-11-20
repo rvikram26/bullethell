@@ -12,8 +12,10 @@ export const STAGE1_BOSSES: Record<string, BossDef> = {
     color: 'pink',
     phases: [
       {
+        name: 'Flutter Rite: Lamp-Drunk Dance',
         hp: 4200,
         time: 28,
+        bonus: 200_000,
         pattern: 'tamsin-1',
         at: { x: 192, y: 96 },
         move: {
@@ -53,8 +55,10 @@ export const STAGE1_BOSSES: Record<string, BossDef> = {
     color: 'green',
     phases: [
       {
+        name: 'Current Rite: Twin Spiral Wicks',
         hp: 4800,
         time: 32,
+        bonus: 300_000,
         pattern: 'odalys-1',
         at: { x: 192, y: 100 },
         move: {
@@ -74,8 +78,10 @@ export const STAGE1_BOSSES: Record<string, BossDef> = {
         at: { x: 192, y: 120 },
       },
       {
+        name: 'Reed Rite: Whispering Rushes',
         hp: 5100,
         time: 34,
+        bonus: 600_000,
         pattern: 'odalys-reed',
         at: { x: 192, y: 90 },
         move: {

@@ -9,7 +9,7 @@ import { clamp } from '../core/math';
 import { SHOT_LEVELS, type ShotSpec, shotLevelForPower } from '../data/playerShots';
 import type { SfxName } from '../data/types';
 import type { RunState } from './state';
-import { SHOT_AMULET, SHOT_NEEDLE, type ShotPool } from './shots';
+import { SHOT_BOLT, SHOT_SPARK, type ShotPool } from './shots';
 
 export const MODE_ALIVE = 0;
 export const MODE_DYING = 1;
@@ -161,6 +161,6 @@ export class Player {
 
   private spawn(host: PlayerHost, x: number, y: number, s: ShotSpec, focus: boolean): void {
     const angle = focus ? (s.focusAngle ?? s.angle * 0.3) : s.angle;
-    host.shots.spawn(x, y, angle, s.speed, s.dmg, s.sprite === 'amulet' ? SHOT_AMULET : SHOT_NEEDLE, s.homing ?? 0);
+    host.shots.spawn(x, y, angle, s.speed, s.dmg, s.sprite === 'spark' ? SHOT_SPARK : SHOT_BOLT, s.homing ?? 0);
   }
 }

@@ -3,7 +3,8 @@
  * levels; the simulation reads nothing else.
  */
 
-export type ShotSprite = 'needle' | 'amulet';
+/** 'bolt': Wren's straight wick-flame bolts. 'spark': slower lantern sparks that home in. */
+export type ShotSprite = 'bolt' | 'spark';
 
 export interface ShotSpec {
   /** Offset from the firing point (the player or an option), px. */
@@ -39,14 +40,14 @@ export interface ShotLevel {
   options: OptionSpec[];
 }
 
-const needle = (dx: number, angle: number, dmg: number, focusAngle?: number): ShotSpec => ({
+const bolt = (dx: number, angle: number, dmg: number, focusAngle?: number): ShotSpec => ({
   dx,
   dy: -10,
   angle,
   focusAngle,
   dmg,
   speed: 16,
-  sprite: 'needle',
+  sprite: 'bolt',
 });
 
 const homing = (dmg: number, angle = 0): ShotSpec => ({
@@ -56,21 +57,21 @@ const homing = (dmg: number, angle = 0): ShotSpec => ({
   dmg,
   speed: 10,
   homing: 5,
-  sprite: 'amulet',
+  sprite: 'spark',
 });
 
-const straight = (dmg: number): ShotSpec => ({ dx: 0, dy: -8, angle: 0, dmg, speed: 16, sprite: 'needle' });
+const straight = (dmg: number): ShotSpec => ({ dx: 0, dy: -8, angle: 0, dmg, speed: 16, sprite: 'bolt' });
 
 export const SHOT_LEVELS: ShotLevel[] = [
   // Level 1: single stream
-  { power: 0, interval: 5, main: [needle(0, 0, 10)], options: [] },
+  { power: 0, interval: 5, main: [bolt(0, 0, 10)], options: [] },
   // Level 2: double stream
-  { power: 16, interval: 5, main: [needle(-6, 0, 8), needle(6, 0, 8)], options: [] },
+  { power: 16, interval: 5, main: [bolt(-6, 0, 8), bolt(6, 0, 8)], options: [] },
   // Level 3: three-way spread plus two straight options
   {
     power: 40,
     interval: 5,
-    main: [needle(0, 0, 8), needle(-7, -7, 5, -1.5), needle(7, 7, 5, 1.5)],
+    main: [bolt(0, 0, 8), bolt(-7, -7, 5, -1.5), bolt(7, 7, 5, 1.5)],
     options: [
       { spread: [-24, 6], focus: [-13, -8], shots: [straight(3)], focusShots: [straight(4)] },
       { spread: [24, 6], focus: [13, -8], shots: [straight(3)], focusShots: [straight(4)] },
@@ -80,7 +81,7 @@ export const SHOT_LEVELS: ShotLevel[] = [
   {
     power: 72,
     interval: 5,
-    main: [needle(0, 0, 8), needle(-7, -8, 5, -1.5), needle(7, 8, 5, 1.5)],
+    main: [bolt(0, 0, 8), bolt(-7, -8, 5, -1.5), bolt(7, 8, 5, 1.5)],
     options: [
       { spread: [-26, 4], focus: [-13, -8], shots: [homing(5)], focusShots: [straight(6)] },
       { spread: [26, 4], focus: [13, -8], shots: [homing(5)], focusShots: [straight(6)] },
@@ -91,11 +92,11 @@ export const SHOT_LEVELS: ShotLevel[] = [
     power: 100,
     interval: 5,
     main: [
-      needle(0, 0, 8),
-      needle(-6, -6, 5, -1.2),
-      needle(6, 6, 5, 1.2),
-      needle(-10, -14, 3, -3),
-      needle(10, 14, 3, 3),
+      bolt(0, 0, 8),
+      bolt(-6, -6, 5, -1.2),
+      bolt(6, 6, 5, 1.2),
+      bolt(-10, -14, 3, -3),
+      bolt(10, 14, 3, 3),
     ],
     options: [
       { spread: [-18, -2], focus: [-9, -10], shots: [straight(4)], focusShots: [straight(5)] },

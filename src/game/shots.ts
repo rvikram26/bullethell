@@ -1,8 +1,8 @@
 import { FIELD_H, FIELD_W } from '../core/constants';
 import { DEG } from '../core/math';
 
-export const SHOT_NEEDLE = 0;
-export const SHOT_AMULET = 1;
+export const SHOT_BOLT = 0;
+export const SHOT_SPARK = 1;
 
 export class Shot {
   active = false;
@@ -11,7 +11,7 @@ export class Shot {
   vx = 0;
   vy = 0;
   dmg = 1;
-  sprite = SHOT_NEEDLE;
+  sprite = SHOT_BOLT;
   /** Max turn rate in radians per frame (0 = straight). */
   homing = 0;
   age = 0;
